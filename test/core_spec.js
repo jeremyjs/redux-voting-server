@@ -93,6 +93,21 @@ describe('application logic:', () => {
       );
     });
 
+    it('marks the winner when no entries are left', () => {
+      const state = fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 4,
+            '28 Days Later': 2
+          }
+        },
+        entries: []
+      });
+      const nextState = next(state);
+      expect(nextState).to.equal(Map({ winner: 'Trainspotting' }));
+    });
+
   });
 
   describe('vote', () => {
