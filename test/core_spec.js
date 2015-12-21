@@ -29,7 +29,7 @@ describe('application logic:', () => {
 
   describe('next', () => {
 
-    it('sets the vote to a pair of the next two entries', () => {
+    it('sets the vote to a pair of the first two entries', () => {
       const state = fromJs({
         entries: ['Trainspotting', '28 Days Later', 'Sunshine']
       });
@@ -39,6 +39,23 @@ describe('application logic:', () => {
           pair: ['Trainspotting', '28 Days Later']
         },
         entries: ['Sunshine']
+      }));
+    });
+
+    it('sets the vote to a pair of the next two entries', () => {
+      const state = fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 1,
+            '28 Days Later': 0
+          }
+        },
+        entries: ['Sunshine', 'Millions', '127 Hours']
+      });
+      const nextState = next(state);
+      expect(nextState.get('vote')).to.equal(fromJs({
+        pair: ['Sunshine', 'Millions']
       }));
     });
 
