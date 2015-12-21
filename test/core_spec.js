@@ -76,6 +76,23 @@ describe('application logic:', () => {
       );
     });
 
+    it('replaces both winners when there\'s a tie', () => {
+      const state = fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 1,
+            '28 Days Later': 1
+          }
+        },
+        entries: ['Sunshine', 'Millions', '127 Hours']
+      });
+      const nextState = next(state);
+      expect(nextState.get('entries')).to.equal(
+        List.of('127 Hours', 'Trainspotting', '28 Days Later')
+      );
+    });
+
   });
 
   describe('vote', () => {
