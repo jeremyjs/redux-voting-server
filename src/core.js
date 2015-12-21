@@ -5,7 +5,8 @@ export function setEntries (state, entries) {
 }
 
 export function next (state) {
-  const entries = state.get('entries');
+  const winners = getWinners(state.get('vote'));
+  const entries = state.get('entries').concat(winners);
   return state.merge({
     vote: Map({ pair: entries.take(2) }),
     entries: entries.skip(2)
@@ -15,5 +16,14 @@ export function next (state) {
 export function vote (state, votedFor) {
   return state.updateIn(['vote', 'tally', votedFor], 0, increment);
 }
+
+function getWinners (vote) {
+  const tally = Map(vote).get('tally', Map());
+  const tallies = Array.from(tally.values());
+  const winners = Array.from(tally.filter(gtea(tallies)).keys());
+  return winners;
+}
+
+const gtea = (ary) => { return (n) => ary.every(e => n >= e); }
 
 const increment = (n) => ++n;
