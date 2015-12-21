@@ -1,0 +1,19 @@
+{
+  "name": "voting-server",
+  "version": "0.0.1",
+  "description": "A simple voting server built with node and redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjman505/redux-voting-server.git"
+  },
+  "author": "Jeremy Meyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjman505/redux-voting-server/issues"
+  },
+  "homepage": "https://github.com/jjman505/redux-voting-server#readme"
+}
