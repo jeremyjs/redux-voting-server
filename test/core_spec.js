@@ -65,6 +65,30 @@ describe('application logic', () => {
       }));
     });
 
+    it('increments the tally for an existing vote', () => {
+      const state = fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 1,
+            '28 Days Later': 1
+          }
+        },
+        entries: []
+      });
+      const nextState = vote(state, 'Trainspotting');
+      expect(nextState).to.equal(fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 2,
+            '28 Days Later': 1
+          }
+        },
+        entries: []
+      }));
+    });
+
   });
 
 });
