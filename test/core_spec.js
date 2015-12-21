@@ -42,6 +42,23 @@ describe('application logic', () => {
       }));
     });
 
+    it('replaces the winner at the end of entries', () => {
+      const state = fromJs({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            'Trainspotting': 1,
+            '28 Days Later': 0
+          }
+        },
+        entries: ['Sunshine', 'Millions', '127 Hours']
+      });
+      const nextState = next(state);
+      expect(nextState.get('entries')).to.equal(
+        List.of('127 Hours', 'Trainspotting')
+      );
+    });
+
   });
 
   describe('vote', () => {
