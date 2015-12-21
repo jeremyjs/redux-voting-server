@@ -11,3 +11,9 @@ export function next (state) {
     entries: entries.skip(2)
   });
 }
+
+export function vote (state, votedFor) {
+  return state.updateIn(['vote', 'tally', votedFor], 0, increment);
+}
+
+const increment = (n) => ++n;
