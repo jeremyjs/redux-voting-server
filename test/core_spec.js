@@ -10,7 +10,7 @@ describe('application logic:', () => {
     it('adds the entries to the state', () => {
       const state = Map();
       const entries = List.of('Trainspotting', '28 Days Later');
-      const nextState = setEntries({state, entries});
+      const nextState = setEntries(state, {entries});
       expect(nextState).to.equal(Map({
         entries: List.of('Trainspotting', '28 Days Later')
       }));
@@ -19,7 +19,7 @@ describe('application logic:', () => {
     it('converts to immutable', () => {
       const state = Map();
       const entries = ['Trainspotting', '28 Days Later'];
-      const nextState = setEntries({state, entries});
+      const nextState = setEntries(state, {entries});
       expect(nextState).to.equal(Map({
         entries: List.of('Trainspotting', '28 Days Later')
       }));
@@ -33,7 +33,7 @@ describe('application logic:', () => {
       const state = fromJS({
         entries: ['Trainspotting', '28 Days Later', 'Sunshine']
       });
-      const nextState = next({state});
+      const nextState = next(state);
       expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later']
@@ -53,7 +53,7 @@ describe('application logic:', () => {
         },
         entries: ['Sunshine', 'Millions', '127 Hours']
       });
-      const nextState = next({state});
+      const nextState = next(state);
       expect(nextState.get('vote')).to.equal(fromJS({
         pair: ['Sunshine', 'Millions']
       }));
@@ -70,7 +70,7 @@ describe('application logic:', () => {
         },
         entries: ['Sunshine', 'Millions', '127 Hours']
       });
-      const nextState = next({state});
+      const nextState = next(state);
       expect(nextState.get('entries')).to.equal(
         List.of('127 Hours', 'Trainspotting')
       );
@@ -87,7 +87,7 @@ describe('application logic:', () => {
         },
         entries: ['Sunshine', 'Millions', '127 Hours']
       });
-      const nextState = next({state});
+      const nextState = next(state);
       expect(nextState.get('entries')).to.equal(
         List.of('127 Hours', 'Trainspotting', '28 Days Later')
       );
@@ -104,7 +104,7 @@ describe('application logic:', () => {
         },
         entries: []
       });
-      const nextState = next({state});
+      const nextState = next(state);
       expect(nextState).to.equal(Map({ winner: 'Trainspotting' }));
     });
 
@@ -119,7 +119,7 @@ describe('application logic:', () => {
         },
         entries: []
       });
-      const nextState = vote({state, votedFor: 'Trainspotting'});
+      const nextState = vote(state, {votedFor: 'Trainspotting'});
       expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
@@ -142,7 +142,7 @@ describe('application logic:', () => {
         },
         entries: []
       });
-      const nextState = vote({state, votedFor: 'Trainspotting'});
+      const nextState = vote(state, {votedFor: 'Trainspotting'});
       expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],

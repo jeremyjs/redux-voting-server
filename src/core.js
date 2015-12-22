@@ -2,11 +2,11 @@ import {List, Map} from 'immutable';
 
 export const INITIAL_STATE = Map();
 
-export function setEntries ({state, entries}) {
+export function setEntries (state, {entries}) {
   return state.set('entries', List(entries));
 }
 
-export function next ({state}) {
+export function next (state) {
   const winners = getWinners(state.get('vote'));
   const entries = state.get('entries').concat(winners);
   if(entries.size === 1) {
@@ -21,7 +21,7 @@ export function next ({state}) {
   }
 }
 
-export function vote ({state, votedFor}) {
+export function vote (state, {votedFor}) {
   return state.updateIn(['vote', 'tally', votedFor], 0, increment);
 }
 
