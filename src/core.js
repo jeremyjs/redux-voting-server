@@ -21,8 +21,8 @@ export function next (state) {
   }
 }
 
-export function vote (state, {votedFor}) {
-  return state.updateIn(['vote', 'tally', votedFor], 0, increment);
+export function vote (voteState, {votedFor}) {
+  return voteState.updateIn(['tally', votedFor], 0, increment);
 }
 
 function getWinners (vote) {

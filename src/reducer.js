@@ -4,7 +4,9 @@ import {setEntries, next, vote, INITIAL_STATE} from './core';
 const actionMap = Map({
   'SET_ENTRIES': setEntries,
   'NEXT': next,
-  'VOTE': vote
+  'VOTE': (state, action) => {
+    return state.update('vote', voteState => vote(voteState, action));
+  }
 });
 
 export default function reducer(state = INITIAL_STATE, action) {
