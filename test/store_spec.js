@@ -1,12 +1,12 @@
 import {Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 
-import createStore from '../src/store';
+import Store from '../src/store';
 
 describe('store', () => {
 
   it('dispatches SET_ENTRIES', () => {
-    const store = createStore();
+    const store = Store();
     expect(store.getState()).to.equal(Map());
 
     store.dispatch({
