@@ -30,4 +30,23 @@ describe('reducer', () => {
     }));
   });
 
+  it('handles VOTE', () => {
+    const initialState = fromJS({
+      vote: {
+        pair: ['Trainspotting', '28 Days Later']
+      },
+      entries: []
+    });
+    const action = {type: 'VOTE', votedFor: 'Trainspotting'};
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: ['Trainspotting', '28 Days Later'],
+        tally: {Trainspotting: 1}
+      },
+      entries: []
+    }));
+  });
+
 });
