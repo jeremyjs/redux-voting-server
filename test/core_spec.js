@@ -1,4 +1,4 @@
-import {List, Map, fromJS as fromJs} from 'immutable';
+import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 
 import {setEntries, next, vote} from '../src/core';
@@ -30,11 +30,11 @@ describe('application logic:', () => {
   describe('next', () => {
 
     it('sets the vote to a pair of the first two entries', () => {
-      const state = fromJs({
+      const state = fromJS({
         entries: ['Trainspotting', '28 Days Later', 'Sunshine']
       });
       const nextState = next({state});
-      expect(nextState).to.equal(fromJs({
+      expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later']
         },
@@ -43,7 +43,7 @@ describe('application logic:', () => {
     });
 
     it('sets the vote to a pair of the next two entries', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -54,13 +54,13 @@ describe('application logic:', () => {
         entries: ['Sunshine', 'Millions', '127 Hours']
       });
       const nextState = next({state});
-      expect(nextState.get('vote')).to.equal(fromJs({
+      expect(nextState.get('vote')).to.equal(fromJS({
         pair: ['Sunshine', 'Millions']
       }));
     });
 
     it('replaces the winner at the end of entries', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -77,7 +77,7 @@ describe('application logic:', () => {
     });
 
     it('replaces both winners when there\'s a tie', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -94,7 +94,7 @@ describe('application logic:', () => {
     });
 
     it('marks the winner when no entries are left', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -113,14 +113,14 @@ describe('application logic:', () => {
   describe('vote', () => {
 
     it('sets the tally for a new vote', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later']
         },
         entries: []
       });
       const nextState = vote({state, votedFor: 'Trainspotting'});
-      expect(nextState).to.equal(fromJs({
+      expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -132,7 +132,7 @@ describe('application logic:', () => {
     });
 
     it('increments the tally for an existing vote', () => {
-      const state = fromJs({
+      const state = fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
@@ -143,7 +143,7 @@ describe('application logic:', () => {
         entries: []
       });
       const nextState = vote({state, votedFor: 'Trainspotting'});
-      expect(nextState).to.equal(fromJs({
+      expect(nextState).to.equal(fromJS({
         vote: {
           pair: ['Trainspotting', '28 Days Later'],
           tally: {
